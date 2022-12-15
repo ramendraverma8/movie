@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import { Modal ,show, Button, ModalHeader, Card } from "react-bootstrap";
 
 function Car(movie){
-    console.log(movie)
     const [show, setshow]=useState(false)
     
     let img_path="https://image.tmdb.org/t/p/w500";

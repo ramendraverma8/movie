@@ -2,16 +2,20 @@ import { Modal , Button, Form, Navbar } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import InfiniteScroll from 'react-infinite-scroll-component'
 import Car from "./Card";
-let API_key="&api_key=358959801e525a759e5e9fc3646e37ae";
+import { Prev } from "react-bootstrap/esm/PageItem";
+let API_key="?api_key=358959801e525a759e5e9fc3646e37ae";
 let base_url="https://api.themoviedb.org/3";
-let url=base_url+"/discover/movie?sort_by=popularity.desc"+API_key;
+let url="https://api.themoviedb.org/3/movie/top_rated?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
 let arr=["Popular", "TopRate","theatres", "Upcoming"]
 const Main=()=>{
     const [movieData,setData]=useState([]);
     const [url_set, setUrl]=useState(url)
     const [search, setsearch]=useState();
     const [show, setshow]=useState(false);
+    const [page, setPage]=useState(1);
+    const  [Type, setType]= useState("Popular");
     const [watchlist, setWatchlist ] = useState({
         Title: "",
         Description: ""
@@ -20,33 +24,47 @@ const Main=()=>{
     const handleshow=()=>setshow(true)
     const handleclsoe=()=>setshow(false)
 
+    const fetchMoreData =() =>{
+        console.log("fffffff")
+        Data();
+    }
+    const Data =()=>{
+        setPage(page+1);
+      getData(Type)
+      console.log(url,Type,movieData.length);
+
+
+      
+
+    }
     useEffect(()=>{ 
         fetch(url_set).then(res=>res.json()).then(data=>{
-            setData(data.results);
+            const merge = [...movieData,...data.results]
+            setData(prevstate=>[...prevstate, ...data.results]);
         });
     },[url_set])
-    const getData=(movieType)=>{  debugger;
+
+    useEffect(()=>{
+        setData([]);
+
+    },[Type])
+    const getData=(movieType)=>{
         if(movieType==="Popular")
         {
-            https://api.themoviedb.org/3/movie/popular?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1
-            url="https://api.themoviedb.org/3/movie/popular?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
+            url= base_url+"/movie/popular"+ API_key+"&language=en-US&page="+page;
         }
         if(movieType==="TopRate")
         {
-            url="https://api.themoviedb.org/3/movie/top_rated?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
+            url=base_url+"/movie/top_rated"+ API_key+"&language=en-US&page="+page;
         }
         if(movieType==="theatres")
         {
-            url="https://api.themoviedb.org/3/movie/now_playing?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
+            url=base_url+"/movie/now_playing"+ API_key+"&language=en-US&page="+page;
         }
         if(movieType==="Upcoming")
         {
-            url="https://api.themoviedb.org/3/movie/upcoming?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
+            url=base_url+"/movie/upcoming"+ API_key+"&language=en-US&page="+page;
         }
-        setUrl(url);
-    }
-    const abc=(e)=>{
-        url= "https://api.themoviedb.org/3/movie/top_rated?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=2";
         setUrl(url);
     }
     const searchMovie=(e)=>{
@@ -99,7 +117,7 @@ const Main=()=>{
                         {
                             arr.map((value)=>{
                                 return(
-                                    <li><a href="#" name={value} key={value} onClick={(e)=>{getData(e.target.name)}}>{value}</a></li>
+                                    <li><a href="#" name={value} key={value} onClick={(e)=>{getData(e.target.name);setType(e.target.name)}}>{value}</a></li>
                                 )
                             })
                         }
@@ -140,19 +158,26 @@ const Main=()=>{
                 </form>
             </Navbar>
             <div className="contain">
-                {
+            <InfiniteScroll
+                  dataLength={movieData.length}
+                  next={fetchMoreData}
+                  hasMore={true}
+            >
+                  {
                     (movieData.length===0)?<p className="notfound">Not Found</p>:movieData.map((res,pos)=>{
                         return(
                             <Car info={res} key={pos}/>
                         )
                     })
                 }
-            </div>
-            <div className="bc">
-            <a href="#" onClick={abc}>Next page....</a>
-            </div>
-            <div className="ac">
-            <a href="#" onClick={abc}>Last page....</a>
+                </InfiniteScroll>
+                {/* {
+                    (movieData.length===0)?<p className="notfound">Not Found</p>:movieData.map((res,pos)=>{
+                        return(
+                            <Car info={res} key={pos}/>
+                        )
+                    })
+                } */}
             </div>
             <ToastContainer />
         </>

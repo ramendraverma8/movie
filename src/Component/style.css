@@ -111,9 +111,7 @@ nav ul li a:focus::before{
     margin: auto;
     height: 40px;
     width: 80%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    align-self: center;
     
 }
 .movie{
@@ -125,6 +123,8 @@ nav ul li a:focus::before{
     box-sizing: border-box;
     overflow: hidden;
     position: relative;
+    float: left;
+    height: 350px;
 }
 .movie .poster{
     width: 100%;
