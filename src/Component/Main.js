@@ -39,13 +39,19 @@ const Main=()=>{
     }
     useEffect(()=>{ 
         fetch(url_set).then(res=>res.json()).then(data=>{
-            const merge = [...movieData,...data.results]
-            setData(prevstate=>[...prevstate, ...data.results]);
+                try{
+                    const merge = [...movieData,...data.results]
+                    setData(prevstate=>[...prevstate, ...data.results]);
+                }
+                catch{
+                  console.log("iii");
+                }
         });
     },[url_set])
 
     useEffect(()=>{
         setData([]);
+        setPage(1);
 
     },[Type])
     const getData=(movieType)=>{
