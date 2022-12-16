@@ -32,11 +32,13 @@ function Car(movie){
                     <div>
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
-                                <Modal.Title></Modal.Title>
+                                <Modal.Title>
+                                <h3 style={{align:"center"}}><b>{movie.info.title}</b></h3>
+                                </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <img className="card-img-top , abc" style={{width:'15rem',}}src={img_path+movie.info.poster_path} />
-                                <h3 style={{align:"center"}}><b>{movie.info.title}</b></h3>
+                                
 
                                 <a href="#" >Next page</a>
                                 <h4><b>IMDb:</b> {movie.info.vote_average}</h4>
