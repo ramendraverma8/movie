@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Modal ,show, Button, ModalHeader, Card } from "react-bootstrap";
+import { Modal , Button,} from "react-bootstrap";
 
 function Car(movie){
     const [show, setshow]=useState(false)
@@ -19,7 +19,7 @@ function Car(movie){
             </Card> */}
             <div className="movie" onClick={handleshow}>
                 <div className="photo">
-                    <img src={img_path+movie.info.poster_path}className="poster" ></img>
+                    <img src={img_path+movie.info.poster_path} alt="{movie.info.title}"  className="poster" ></img>
                     <p className="rating">{movie.info.vote_average}</p>
                 </div>
                  <div className="movie-details">
@@ -37,10 +37,7 @@ function Car(movie){
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <img className="card-img-top , abc" style={{width:'15rem',}}src={img_path+movie.info.poster_path} />
-                                
-
-                                <a href="#" >Next page</a>
+                                <img className="card-img-top , abc" alt="{movie.info.title}" style={{width:'15rem',}}src={img_path+movie.info.poster_path} />
                                 <h4><b>IMDb:</b> {movie.info.vote_average}</h4>
                                 <h5><b>Release Date:</b> {movie.info.release_date}</h5>
                                 <br></br>

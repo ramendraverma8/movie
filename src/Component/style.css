@@ -25,7 +25,7 @@ nav ul{
     display: flex;
 }
 nav ul li{
-    list-style: none;
+    list-style:lower-roman;
     margin-right: 1rem;
 }  
 nav ul li a{
@@ -35,6 +35,9 @@ nav ul li a{
     font-weight: bold;
     padding: 0.2rem o.6rem;
     position: relative;
+}
+nav ul li a::selection{
+    color: black;
 }
 nav ul li a::before{
     content: "";

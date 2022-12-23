@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Car from "./Card";
-import { Prev } from "react-bootstrap/esm/PageItem";
+import {VscAdd} from 'react-icons/vsc';
 let API_key="?api_key=358959801e525a759e5e9fc3646e37ae";
 let base_url="https://api.themoviedb.org/3";
 let url="https://api.themoviedb.org/3/movie/top_rated?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
@@ -40,7 +40,7 @@ const Main=()=>{
     useEffect(()=>{ 
         fetch(url_set).then(res=>res.json()).then(data=>{
                 try{
-                    const merge = [...movieData,...data.results]
+                    // const merge = [...movieData,...data.results]
                     setData(prevstate=>[...prevstate, ...data.results]);
                 }
                 catch{
@@ -76,7 +76,7 @@ const Main=()=>{
     const searchMovie=(e)=>{
         if(e.key==="Enter")
         {
-            url=base_url+"/search/movie?api_key="+"358959801e525a759e5e9fc3646e37ae"+"&query="+search;
+            url=base_url+"/search/movie"+API_key+"&query="+search;
             console.log(url);
             setUrl(url);
             setsearch(" ")
@@ -117,21 +117,21 @@ const Main=()=>{
     }
     return (
         <>
-            <Navbar bg="dark" expand="lg">
+            <Navbar bg="dark" expand="lg" >
                 <nav>
                     <ul>
                         {
                             arr.map((value)=>{
                                 return(
-                                    <li><a href="#" name={value} key={value} onClick={(e)=>{getData(e.target.name);setType(e.target.name)}}>{value}</a></li>
+                                    <li><a href="#0" name={value} key={value} onClick={(e)=>{getData(e.target.name);setType(e.target.name)}}>{value}</a></li>
                                 )
                             })
                         }
                         <li>
-                            <a href="#" onClick={handleshow}><i className="fa-solid fa-plus" ></i>Add Watchlist</a>
+                            <a href="#0" onClick={handleshow}><i className="fa-solid fa-plus" ></i> Watchlist</a>
                             <Modal show={show} onHide={handleclsoe} method="POST">
                                 <Modal.Header closeButton>
-                                    <Modal.Title>Add Watchlist</Modal.Title>
+                                    <Modal.Title>Watchlist</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <Form >
@@ -148,6 +148,7 @@ const Main=()=>{
                                 <Modal.Footer>
                                     <Button variant="secondary" onClick={handleclsoe}>Close</Button>
                                     <Button variant="primary" onClick={postData}>Save</Button>
+                                    <VscAdd onClick={handleshow}/>
 
                                 </Modal.Footer>
                                 </Modal> 
