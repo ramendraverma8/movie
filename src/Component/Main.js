@@ -4,11 +4,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Car from "./Card";
+import Loader from "react-js-loader";
 import {VscAdd} from 'react-icons/vsc';
 let API_key="?api_key=358959801e525a759e5e9fc3646e37ae";
 let base_url="https://api.themoviedb.org/3";
 let url="https://api.themoviedb.org/3/movie/top_rated?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
-let arr=["Popular", "TopRate","theatres", "Upcoming"]
+let arr=["Popular", "TopRated","theatres", "Upcoming"]
 const Main=()=>{
     const [movieData,setData]=useState([]);
     const [url_set, setUrl]=useState(url)
@@ -115,13 +116,21 @@ const Main=()=>{
         }
 
     }
+    const loader =() =>{ console.log("jjjjj")
+        return(
+            <div className="loader">
+                <Loader type="ekvalayzer" bgColor={"#ff6b81"} title={"loading"} size={100} />
+            </div>
+        )
+    }
+    const abc =()=>{}
     return (
         <>
             <Navbar bg="dark" expand="lg" >
                 <nav>
                     <ul>
                         {
-                            arr.map((value)=>{
+                            arr.map((value, index)=>{
                                 return(
                                     <li><a href="#0" name={value} key={value} onClick={(e)=>{getData(e.target.name);setType(e.target.name)}}>{value}</a></li>
                                 )
@@ -171,7 +180,7 @@ const Main=()=>{
                   hasMore={true}
             >
                   {
-                    (movieData.length===0)?<p className="notfound">Not Found</p>:movieData.map((res,pos)=>{
+                    (movieData.length===0)? <div>{loader()}</div>:movieData.map((res,pos)=>{
                         return(
                             <Car info={res} key={pos}/>
                         )

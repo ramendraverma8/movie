@@ -38,7 +38,8 @@ function Car(movie){
                             </Modal.Header>
                             <Modal.Body>
                                 <img className="card-img-top , abc" alt="{movie.info.title}" style={{width:'15rem',}}src={img_path+movie.info.poster_path} />
-                                <h4><b>IMDb:</b> {movie.info.vote_average}</h4>
+                                <h2>&nbsp;</h2>
+                                <h4><b>TMDb:</b> {movie.info.vote_average}</h4>
                                 <h5><b>Release Date:</b> {movie.info.release_date}</h5>
                                 <br></br>
                                 <h5><b>Overview</b></h5>
