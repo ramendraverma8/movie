@@ -9,7 +9,7 @@ import {VscAdd} from 'react-icons/vsc';
 let API_key="?api_key=358959801e525a759e5e9fc3646e37ae";
 let base_url="https://api.themoviedb.org/3";
 let url="https://api.themoviedb.org/3/movie/top_rated?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
-let arr=["Popular", "TopRated","Theatre", "Upcoming"]
+let arr=["Popular", "Top-Rated","Theatre", "Upcoming"]
 const Main=()=>{
     const [movieData,setData]=useState([]);
     const [url_set, setUrl]=useState(url)
@@ -60,11 +60,11 @@ const Main=()=>{
         {
             url= base_url+"/movie/popular"+ API_key+"&language=en-US&page="+page;
         }
-        if(movieType==="TopRate")
+        if(movieType==="Top-Rated")
         {
             url=base_url+"/movie/top_rated"+ API_key+"&language=en-US&page="+page;
         }
-        if(movieType==="theatres")
+        if(movieType==="Theatre")
         {
             url=base_url+"/movie/now_playing"+ API_key+"&language=en-US&page="+page;
         }
