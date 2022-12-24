@@ -31,7 +31,7 @@ function Car(movie){
                 </div> 
                     <div>
                         <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
+                            <Modal.Header closeButton className="cba">
                                 <Modal.Title>
                                 <h3 style={{align:"center"}}><b>{movie.info.title}</b></h3>
                                 </Modal.Title>

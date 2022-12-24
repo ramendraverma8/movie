@@ -213,6 +213,14 @@ nav ul li a:focus::before{
   color: white;
 
 }
+.movie:hover{
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
 .abc{
     margin-left: 105px;
+}
+.cba{
+    text-align: center;
 }
