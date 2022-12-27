@@ -79,9 +79,12 @@ const Main=()=>{
             {
                 url=base_url+"/search/movie"+API_key+"&query=" + search;
                 console.log(url)
-                setUrl(url);
-                setsearch("")
-                setData([]);
+                if(url!==url_set)
+                {
+                    setUrl(url);
+                    setsearch("")
+                    setData([]);
+                }
             }
         }
     let name,value;
