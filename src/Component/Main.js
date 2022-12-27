@@ -8,7 +8,7 @@ import Loader from "react-js-loader";
 import {VscAdd} from 'react-icons/vsc';
 let API_key="?api_key=358959801e525a759e5e9fc3646e37ae";
 let base_url="https://api.themoviedb.org/3";
-let url="https://api.themoviedb.org/3/movie/top_rated?api_key=358959801e525a759e5e9fc3646e37ae&language=en-US&page=1";
+let url=base_url+"/movie/popular"+ API_key+"&language=en-US&page=1";
 let arr=["Popular", "Top-Rated","Theatre", "Upcoming"]
 const Main=()=>{
     const [movieData,setData]=useState([]);
@@ -26,7 +26,6 @@ const Main=()=>{
     const handleclsoe=()=>setshow(false)
 
     const fetchMoreData =() =>{
-        console.log("fffffff")
         Data();
     }
     const Data =()=>{
@@ -38,7 +37,7 @@ const Main=()=>{
       
 
     }
-    useEffect(()=>{ 
+    useEffect(()=>{ console.log("useeffect",url_set)
         fetch(url_set).then(res=>res.json()).then(data=>{
                 try{
                     // const merge = [...movieData,...data.results]
@@ -55,7 +54,7 @@ const Main=()=>{
         setPage(1);
 
     },[Type])
-    const getData=(movieType)=>{
+    const getData=(movieType)=>{console.log(movieType)
         if(movieType==="Popular")
         {
             url= base_url+"/movie/popular"+ API_key+"&language=en-US&page="+page;
@@ -74,14 +73,17 @@ const Main=()=>{
         }
         setUrl(url);
     }
-    const searchMovie=(e)=>{
-        if(e.key==="Enter")
-        {
-            url=base_url+"/search/movie"+API_key+"&query="+search;
-            console.log(url);
-            setUrl(url);
-            setsearch(" ")
-        }}
+    const searchMovie=(e)=>{console.log("fffffff")
+        e.preventDefault();
+        if (search !== "")
+            {
+                url=base_url+"/search/movie"+API_key+"&query=" + search;
+                console.log(url)
+                setUrl(url);
+                setsearch("")
+                setData([]);
+            }
+        }
     let name,value;
     const getWatchlistData=(e)=>{
         name =e.target.name;
@@ -116,14 +118,13 @@ const Main=()=>{
         }
 
     }
-    const loader =() =>{ console.log("jjjjj")
+    const loader =() =>{
         return(
             <div className="loader">
                 <Loader type="ekvalayzer" bgColor={"#ff6b81"} title={"loading"} size={100} />
             </div>
         )
     }
-    const abc =()=>{}
     return (
         <>
             <Navbar bg="dark" expand="lg" >
@@ -168,8 +169,8 @@ const Main=()=>{
                 
                 <form>
                     <div className="search-btn">
-                        <input type="text" placeholder="Search for a movie" className="inputText" onChange={(e)=>{setsearch(e.target.value)}} value={search} onKeyPress={searchMovie}/>
-                        <button><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" placeholder="Search for a movie" className="inputText" onChange={(e)=>{setsearch(e.target.value)}} value={search}/>
+                        <button onClick={searchMovie}><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
             </Navbar>
