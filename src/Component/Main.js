@@ -52,6 +52,7 @@ const Main=()=>{
     useEffect(()=>{
         setData([]);
         setPage(1);
+        setUrl("")
 
     },[Type])
     const getData=(movieType)=>{console.log(movieType)
@@ -77,6 +78,7 @@ const Main=()=>{
         e.preventDefault();
         if (search !== "")
             {
+
                 url=base_url+"/search/movie"+API_key+"&query=" + search;
                 console.log(url)
                 if(url!==url_set)
@@ -84,6 +86,16 @@ const Main=()=>{
                     setUrl(url);
                     setsearch("")
                     setData([]);
+                    setType("")
+
+                }
+                else{
+                    url= url + " ";
+                    setUrl(url);
+                    setsearch("")
+                    setData([]);
+                    setType("")
+
                 }
             }
         }
