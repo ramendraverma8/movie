@@ -7,6 +7,28 @@ function Car(movie){
     let img_path="https://image.tmdb.org/t/p/w500";
     const handleshow=()=>setshow(true)
     const handleClose=()=>setshow(false)
+    const watchlist =()=>{
+        if (window.localStorage.getItem('watchlist')){
+            window.localStorage.setItem("watchlist", JSON.stringify([...JSON.parse(window.localStorage.getItem('watchlist')),movie.info]))
+        }
+        else{
+            window.localStorage.setItem("watchlist", JSON.stringify([movie.info]))
+        }
+        handleClose();
+
+    }
+    const removewatchlist =()=>{
+        let watchlist = JSON.parse(window.localStorage.getItem('watchlist'))
+        let newwatchlist = watchlist.filter((item)=>item.id!==movie.info.id)
+        window.localStorage.setItem("watchlist", JSON.stringify(newwatchlist))
+        handleClose();
+    }
+    let abc = [];
+    let watchlist1 = JSON.parse(window.localStorage.getItem('watchlist'))
+    abc = watchlist1 ? watchlist1.map((item)=>item.id): [];
+    console.log(abc, movie.info.id);
+    
+
 
     return(
         <>
@@ -46,6 +68,13 @@ function Car(movie){
                                 <p>{movie.info.overview}</p>
                             </Modal.Body>
                             <Modal.Footer>
+                                {
+                                     (abc.includes(movie.info.id)) ?
+                                    <Button variant="secondary" onClick={removewatchlist}>Delete</Button>:
+                                
+                                    <Button variant="secondary" onClick={watchlist}>Add</Button>
+                        
+                                }
                                 <Button variant="secondary" onClick={handleClose}>Close</Button>
                             </Modal.Footer>
                      </Modal>

@@ -1,29 +1,29 @@
-import { Modal , Button, Form, Navbar } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Car from "./Card";
 import Loader from "react-js-loader";
-import {VscAdd} from 'react-icons/vsc';
+// import {VscAdd} from 'react-icons/vsc';
 let API_key="?api_key=358959801e525a759e5e9fc3646e37ae";
 let base_url="https://api.themoviedb.org/3";
 let url=base_url+"/movie/popular"+ API_key+"&language=en-US&page=1";
-let arr=["Popular", "Top-Rated","Theatre", "Upcoming"]
+let arr=["Popular", "Top-Rated","Theatre", "Upcoming", "Watchlist"]
 const Main=()=>{
     const [movieData,setData]=useState([]);
     const [url_set, setUrl]=useState(url)
     const [search, setsearch]=useState();
-    const [show, setshow]=useState(false);
+    // const [show, setshow]=useState(false);
     const [page, setPage]=useState(1);
     const  [Type, setType]= useState("Popular");
-    const [watchlist, setWatchlist ] = useState({
-        Title: "",
-        Description: ""
+    // const [watchlist, setWatchlist ] = useState({
+    //     Title: "",
+    //     Description: ""
 
-    })
-    const handleshow=()=>setshow(true)
-    const handleclsoe=()=>setshow(false)
+    // })
+    // const handleshow=()=>setshow(true)
+    // const handleclsoe=()=>setshow(false)
 
     const fetchMoreData =() =>{
         Data();
@@ -59,20 +59,30 @@ const Main=()=>{
         if(movieType==="Popular")
         {
             url= base_url+"/movie/popular"+ API_key+"&language=en-US&page="+page;
+            setUrl(url);
         }
         if(movieType==="Top-Rated")
         {
             url=base_url+"/movie/top_rated"+ API_key+"&language=en-US&page="+page;
+            setUrl(url);
         }
         if(movieType==="Theatre")
         {
             url=base_url+"/movie/now_playing"+ API_key+"&language=en-US&page="+page;
+            setUrl(url);
         }
         if(movieType==="Upcoming")
         {
             url=base_url+"/movie/upcoming"+ API_key+"&language=en-US&page="+page;
+            setUrl(url);
         }
-        setUrl(url);
+        if(movieType==="Watchlist"){
+            
+            setType("")
+                setData([])
+            setData(JSON.parse(window.localStorage.getItem('watchlist')));
+        }
+        
     }
     const searchMovie=(e)=>{console.log("fffffff")
         e.preventDefault();
@@ -99,40 +109,40 @@ const Main=()=>{
                 }
             }
         }
-    let name,value;
-    const getWatchlistData=(e)=>{
-        name =e.target.name;
-        value=e.target.value;
-        setWatchlist({...watchlist, [name]:value})
-    }
+    // let name,value;
+    // const getWatchlistData=(e)=>{
+    //     name =e.target.name;
+    //     value=e.target.value;
+    //     setWatchlist({...watchlist, [name]:value})
+    // }
     
-    const postData=async(event)=>{
-        event.preventDefault();
-        const {Title, Description} = watchlist;
-        const res = await fetch("https://movie-8b385-default-rtdb.firebaseio.com/watchlist.json",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-            Title,
-            Description,}),
-        })
-        if(res){
-                setWatchlist({
-                Title: "",
-                Description: ""
+    // const postData=async(event)=>{
+    //     event.preventDefault();
+    //     const {Title, Description} = watchlist;
+    //     const res = await fetch("https://movie-8b385-default-rtdb.firebaseio.com/watchlist.json",
+    //     {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //         Title,
+    //         Description,}),
+    //     })
+    //     if(res){
+    //             setWatchlist({
+    //             Title: "",
+    //             Description: ""
         
-            });
-            toast.success("Watchlist Added",{
-                position: "top-center",
-                theme: "colored",
-            });
+    //         });
+    //         toast.success("Watchlist Added",{
+    //             position: "top-center",
+    //             theme: "colored",
+    //         });
 
-        }
+    //     }
 
-    }
+    // }
     const loader =() =>{
         return(
             <div className="loader">
@@ -152,7 +162,7 @@ const Main=()=>{
                                 )
                             })
                         }
-                        <li>
+                        {/* <li>
                             <a href="#0" onClick={handleshow}><i className="fa-solid fa-plus" ></i> Watchlist</a>
                             <Modal show={show} onHide={handleclsoe} method="POST">
                                 <Modal.Header closeButton>
@@ -177,7 +187,7 @@ const Main=()=>{
 
                                 </Modal.Footer>
                                 </Modal> 
-                        </li>
+                        </li> */}
                     </ul>
                     
                 </nav>
@@ -211,7 +221,7 @@ const Main=()=>{
                     })
                 } */}
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </>
     )
 }
