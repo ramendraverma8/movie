@@ -33,7 +33,7 @@ nav ul li a{
     color: #fff;
     font-size: 1.2rem;
     font-weight: bold;
-    padding: 0.2rem o.6rem;
+    padding: 0.2rem 0.6rem;
     position: relative;
 }
 nav ul li a::selection{
@@ -89,6 +89,7 @@ nav ul li a:focus::before{
     border-radius: 2rem 0 0 2rem;
     padding: 0.3rem 1rem;
     font-size: 1rem;
+    /* todo: fix it */
     color: rgba(--bs-dark-rgb);
     background-color: rgba(--bs-dark-rgb);
     /* box-shadow: inset 0 5px 10px var(--secondary-color); */
