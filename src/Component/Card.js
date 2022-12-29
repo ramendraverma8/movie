@@ -33,13 +33,6 @@ function Car(movie){
 
     return(
         <>
-    
-            {/* <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={img_path+movie.info.poster_path} />
-            <Card.Body>
-                <Card.Title>{movie.info.title}</Card.Title>
-            </Card.Body>
-            </Card> */}
             <div className="movie" onClick={handleshow}>
                 <div className="photo">
                     <img src={img_path+movie.info.poster_path} alt="{movie.info.title}"  className="poster" ></img>
