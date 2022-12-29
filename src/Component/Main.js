@@ -38,7 +38,20 @@ const Main=()=>{
       
 
     }
-    useEffect(()=>{ console.log("useeffect",url_set)
+    useEffect(()=>{
+        if (movieData.length ===0 ){
+            setTimeout(() => {
+                setLoad("No Data Found")   
+               }, 10000);
+        }
+        else{
+            setLoad(<div className="loader">
+            <Loader type="ekvalayzer" bgColor={"#ff6b81"} title={"loading"} size={100} />
+            </div>)
+        } 
+    },[movieData])
+      
+        useEffect(()=>{ console.log("useeffect",url_set)
         fetch(url_set).then(res=>res.json()).then(data=>{
                 try{
                     // const merge = [...movieData,...data.results]
@@ -153,6 +166,9 @@ const Main=()=>{
             </div>
         )
     }
+    const [load, setLoad] = useState(<div className="loader">
+    <Loader type="ekvalayzer" bgColor={"#ff6b81"} title={"loading"} size={100} />
+    </div>)
     return (
         <>
             <Navbar bg="dark" expand="lg" >
@@ -161,7 +177,7 @@ const Main=()=>{
                         {
                             arr.map((value, index)=>{
                                 return(
-                                    <li><a href="#0" name={value} key={value} onClick={(e)=>{getData(e.target.name);e.target.name!="Watchlist" ?? setType(e.target.name)}}>{value}</a></li>
+                                    <li><a href="#0" name={value} key={value} onClick={(e)=>{getData(e.target.name);e.target.name!="Watchlist" ? setType(e.target.name):setType(Type) }}>{value}</a></li>
                                 )
                             })
                         }
@@ -209,9 +225,9 @@ const Main=()=>{
                   hasMore={hasMore}
             >
                   {
-                    (movieData.length===0)? <div>{loader()}</div>:movieData.map((res,pos)=>{
+                    (movieData.length===0)? <div>{load}</div>:movieData.map((res,pos)=>{
                         return(
-                            <Car info={res} key={pos}/>
+                            <Car info={res} key={pos} getData={getData}/>
                         )
                     })
                 }
