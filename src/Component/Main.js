@@ -43,7 +43,7 @@ const Main=()=>{
                 catch{
                   console.log("iii");
                 }
-        });
+        });setHasMore(true)
     },[url_set])
 
     useEffect(()=>{
@@ -75,6 +75,8 @@ const Main=()=>{
         }
         if(movieType==="Watchlist"){
             setHasMore(false)
+            setUrl("")
+            setPage(1);
             setData(JSON.parse(window.localStorage.getItem('watchlist')));
         }
 
