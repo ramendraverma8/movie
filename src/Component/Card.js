@@ -22,11 +22,11 @@ function Car(movie){
         let newwatchlist = watchlist.filter((item)=>item.id!==movie.info.id)
         window.localStorage.setItem("watchlist", JSON.stringify(newwatchlist))
         handleClose();
+        window.location.reload()
     }
     let abc = [];
     let watchlist1 = JSON.parse(window.localStorage.getItem('watchlist'))
     abc = watchlist1 ? watchlist1.map((item)=>item.id): [];
-    console.log(abc, movie.info.id);
     
 
 

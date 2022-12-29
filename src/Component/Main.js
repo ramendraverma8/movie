@@ -14,6 +14,7 @@ const Main=()=>{
     const [movieData,setData]=useState([]);
     const [url_set, setUrl]=useState(url)
     const [search, setsearch]=useState();
+    const [hasMore,setHasMore]=useState(true)
     // const [show, setshow]=useState(false);
     const [page, setPage]=useState(1);
     const  [Type, setType]= useState("Popular");
@@ -24,7 +25,7 @@ const Main=()=>{
     // })
     // const handleshow=()=>setshow(true)
     // const handleclsoe=()=>setshow(false)
-
+    
     const fetchMoreData =() =>{
         Data();
     }
@@ -77,13 +78,15 @@ const Main=()=>{
             setUrl(url);
         }
         if(movieType==="Watchlist"){
-            
-            setType("")
-                setData([])
+            setHasMore(false)
             setData(JSON.parse(window.localStorage.getItem('watchlist')));
+            console.log(movieData,url_set, page, Type, "new")
         }
+
         
     }
+
+    console.log(movieData,url_set, page, Type, "prev")
     const searchMovie=(e)=>{console.log("fffffff")
         e.preventDefault();
         if (search !== "")
@@ -158,7 +161,7 @@ const Main=()=>{
                         {
                             arr.map((value, index)=>{
                                 return(
-                                    <li><a href="#0" name={value} key={value} onClick={(e)=>{getData(e.target.name);setType(e.target.name)}}>{value}</a></li>
+                                    <li><a href="#0" name={value} key={value} onClick={(e)=>{getData(e.target.name);e.target.name!="Watchlist" ?? setType(e.target.name)}}>{value}</a></li>
                                 )
                             })
                         }
@@ -203,7 +206,7 @@ const Main=()=>{
             <InfiniteScroll
                   dataLength={movieData.length}
                   next={fetchMoreData}
-                  hasMore={true}
+                  hasMore={hasMore}
             >
                   {
                     (movieData.length===0)? <div>{loader()}</div>:movieData.map((res,pos)=>{
