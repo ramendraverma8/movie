@@ -138,6 +138,7 @@ const Main=()=>{
                   dataLength={movieData.length}
                   next={fetchMoreData}
                   hasMore={hasMore}
+                  className="xyz"
             >
                   {
                     (movieData.length===0)? <div>{load}</div>:movieData.map((res,pos)=>{
